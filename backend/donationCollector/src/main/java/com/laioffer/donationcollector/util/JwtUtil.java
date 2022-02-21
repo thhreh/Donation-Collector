@@ -16,7 +16,7 @@ public class JwtUtil {
 
     public String generateToken(String subject) {
         return Jwts.builder()
-                .setClaims(new HashMap<>())//setClaims可以声明自己，用HashMap<>(),free style的key value pair
+                .setClaims(new HashMap<>())
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))

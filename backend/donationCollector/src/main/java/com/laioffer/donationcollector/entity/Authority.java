@@ -1,6 +1,5 @@
 package com.laioffer.donationcollector.entity;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

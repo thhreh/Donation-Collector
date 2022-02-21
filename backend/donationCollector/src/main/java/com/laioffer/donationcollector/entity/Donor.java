@@ -14,8 +14,10 @@ public class Donor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String username; //email
+
     @JsonIgnore
     private String password;
+
     @JsonIgnore
     private boolean enabled;
 

@@ -10,5 +10,4 @@ public class Token {
     public String getToken() {
         return token;
     }
-    //变成json格式
 }

@@ -1,4 +1,7 @@
 package com.laioffer.donationcollector.repository;
 
-public class CustomLocationRepository {
+import java.util.List;
+
+public interface CustomLocationRepository {
+    List<Long> searchItemByDistance (double lat, double lon, String distance);
 }
