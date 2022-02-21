@@ -20,8 +20,8 @@ public class ItemController {
         this.itemService = itemService;
     }
     @GetMapping(value = "/items")
-    public List<Item> listItems(@RequestParam(name = "donor") String donorName) {
-        return itemService.findByDonor(donorName);
+    public List<Item> listItems(Principal principal) {
+        return itemService.findByDonor(principal.getName());
     }
     @GetMapping(value = "/items/{itemId}")
     public Item getItem(@PathVariable Long itemId) {
@@ -35,7 +35,8 @@ public class ItemController {
             @RequestParam("category") String category,
             @RequestParam("donor") String donor,
             @RequestParam("weight") double weight,
-            @RequestParam("images") MultipartFile[] images) {
+            @RequestParam("images") MultipartFile[] images,
+            Principal principal) {
 
         Item item = new Item.Builder().setName(name)
                 .setDescription(description)
@@ -43,7 +44,7 @@ public class ItemController {
                 .setCategory(category)
                 .setDonor(new Donor.Builder().setUsername(donor).build())
                 .build();
-       List<NGO> ngosToBeNotified = itemService.add(item, images);
+       List<NGO> ngosToBeNotified = itemService.add(item, images, principal);
        return ngosToBeNotified;
     }
 

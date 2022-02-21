@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +33,9 @@ public class SearchService {
         this.ngoRepository = ngoRepository;
     }
 
-    public List<Item> search(String category) {
+    public List<Item> search(String category, Principal principal) {
         //NGO -->principal (logged in)
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-
-        NGO ngo = ngoRepository.findById("ngo1").orElse(null);
+        NGO ngo = ngoRepository.findById(principal.getName()).orElse(null);
         String distance = ngo.getDistance();
         System.out.println("Distance: " + distance);
 
