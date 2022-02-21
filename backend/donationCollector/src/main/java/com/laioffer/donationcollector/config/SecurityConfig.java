@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/items").permitAll()
                 .antMatchers("/items").permitAll()
                 .antMatchers("/items/*").permitAll()
-                .antMatchers("/search").permitAll()
+                .antMatchers("/search").hasAnyAuthority("ROLE_NGO")
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

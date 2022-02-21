@@ -44,9 +44,8 @@ public class SearchService {
         Location ngoLocation = geoEncodingService.getLatLong(1L, ngo.getAddress());
         GeoPoint ngoGeo = ngoLocation.getGeoPoint();
 
-       // List<Long> itemIds = locationRepository.searchItemByDistance(ngoGeo.getLat(), ngoGeo.getLon(), distance);
-        //return itemRepository.findByIdInAndCategory(itemIds, category);
-        return new ArrayList<>();
+       List<Long> itemIds = locationRepository.searchItemByDistance(ngoGeo.getLat(), ngoGeo.getLon(), distance);
+        return itemRepository.findByIdInAndCategory(itemIds, category);
     }
 
 }
