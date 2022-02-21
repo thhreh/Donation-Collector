@@ -34,7 +34,7 @@ public class NGO implements Serializable {
     private String prefCategory;
 
     @JsonIgnore
-    private double preferredWeight;
+    private double prefWeight;
 
     @JsonIgnore
     private double currentWeight;
@@ -55,7 +55,7 @@ public class NGO implements Serializable {
         this.contact = builder.contact;
         this.distance = builder.distance;
         this.prefCategory = builder.prefCategory;
-        this.preferredWeight = builder.preferredWeight;
+        this.prefWeight = builder.prefWeight;
         this.currentWeight = builder.currentWeight;
         this.cart = builder.cart;
     }
@@ -131,12 +131,12 @@ public class NGO implements Serializable {
         return this;
     }
 
-    public double getPreferredWeight() {
-        return preferredWeight;
+    public double getPrefWeight() {
+        return prefWeight;
     }
 
-    public NGO setPreferredWeight(double preferredWeight) {
-        this.preferredWeight = preferredWeight;
+    public NGO setPreferredWeight(double prefWeight) {
+        this.prefWeight = prefWeight;
         return this;
     }
 
@@ -181,8 +181,8 @@ public class NGO implements Serializable {
         @JsonProperty("prefCategory")
         private String prefCategory;
 
-        @JsonProperty("preferredWeight")
-        private double preferredWeight;
+        @JsonProperty("prefWeight")
+        private double prefWeight;
 
         @JsonProperty("currentWeight")
         private double currentWeight;
@@ -200,8 +200,8 @@ public class NGO implements Serializable {
             return this;
         }
 
-        public Builder setPreferredWeight(double preferredWeight) {
-            this.preferredWeight = preferredWeight;
+        public Builder setPreferredWeight(double prefWeight) {
+            this.prefWeight = prefWeight;
             return this;
         }
 
