@@ -78,6 +78,7 @@ public class ItemService {
         List<NGO> prefHit = new ArrayList<>();
         List<NGO> sameCategoryNGO = ngoRepository.findByPrefCategory(item.getCategory());
         //find if item added matches NGO distance
+        /*
         for(NGO a : sameCategoryNGO) {
             System.out.println(a.getUsername());
             Location ngoLocation = geoEncodingService.getLatLong(1L, a.getAddress());
@@ -99,6 +100,7 @@ public class ItemService {
                 }
             }
         }
+        */
         return prefHit;
     }
 
