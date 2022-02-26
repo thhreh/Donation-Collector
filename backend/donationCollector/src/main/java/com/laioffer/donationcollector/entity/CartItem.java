@@ -1,6 +1,8 @@
 package com.laioffer.donationcollector.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -14,8 +16,13 @@ public class CartItem {
     private Long id;
 
     private double weight;
+    /*
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+     */
+    @OneToOne
     private Item item;
 
     @ManyToOne

@@ -8,6 +8,7 @@ import com.laioffer.donationcollector.repository.NGORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;

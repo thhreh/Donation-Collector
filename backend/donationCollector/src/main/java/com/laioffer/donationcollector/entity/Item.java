@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.laioffer.donationcollector.entity.Donor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "item")
 @JsonDeserialize(builder = Item.Builder.class)
@@ -29,7 +32,11 @@ public class Item implements Serializable {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemImage> images;
-
+    /*
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<CartItem> cartItems;
+    */
     public Item(){};
 
     private Item(Builder builder) {
@@ -50,7 +57,16 @@ public class Item implements Serializable {
         this.id = id;
         return this;
     }
+    /*
+    public List<CartItem> getCartItem() {
+        return cartItems;
+    }
 
+    public Item setCartItem(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+        return this;
+    }
+    */
     public String getName() {
         return name;
     }
@@ -131,7 +147,10 @@ public class Item implements Serializable {
 
         @JsonProperty("weight")
         private double weight;
-
+        /*
+        @JsonProperty("cart_item")
+        private List<CartItem> cartItems;
+        */
         @JsonProperty("donor")
         private Donor donor;
 
@@ -142,7 +161,12 @@ public class Item implements Serializable {
             this.id = id;
             return this;
         }
-
+        /*
+        public Builder setCartItems(List<CartItem> cartItems) {
+            this.cartItems = cartItems;
+            return this;
+        }
+        */
         public Builder setName(String name) {
             this.name = name;
             return this;
