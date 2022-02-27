@@ -1,14 +1,54 @@
-import { Button, Drawer, List, message, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { checkout, getCart } from "../utils";
+import {Button, Drawer, List, message, Popconfirm, Typography} from "antd";
+import React, { useEffect, useState } from "react";
+import {checkout, getCart, deleteCartItem, getItemsByDonor} from "../utils";
 
 import emailjs from 'emailjs-com';
 import{ init } from '@emailjs/browser';
+import {DeleteOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 
 
 
 const { Text } = Typography;
+class RemoveCartItemButton extends React.Component {
+    state = {
+        loading: false
+    };
 
+    handleRemoveItem = async () => {
+        const { cartItem, onRemoveSuccess } = this.props;
+        this.setState({
+            loading: true
+        });
+
+        try {
+            await deleteCartItem(cartItem.id);
+            onRemoveSuccess();
+        } catch (error) {
+            message.error(error.message);
+        } finally {
+            this.setState({
+                loading: false
+            });
+        }
+    };
+
+    render() {
+        return (
+
+                <Button
+                    loading={this.state.loading}
+                    onClick={this.handleRemoveItem}
+                    //danger={true}
+                    //shape="round"
+                    //type="primary"
+                    style={{ border: "none" }}
+                    size="large"
+                    icon={<DeleteOutlined />}
+                ></Button>
+
+        );
+    }
+}
 const MyCart = () => {
     const [cartVisible, setCartVisible] = useState(false);
     const [cartData, setCartData] = useState();
@@ -21,7 +61,10 @@ const MyCart = () => {
         if (!cartVisible) {
             return;
         }
+        loadData();
+    }, [cartVisible]);
 
+    const loadData = async() => {
         setLoading(true);
         getCart()
             .then((data) => {
@@ -33,7 +76,7 @@ const MyCart = () => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [cartVisible]);
+    };
 
     const sendemail = async () => {
         const temp_email = await checkout()
@@ -108,7 +151,13 @@ const MyCart = () => {
                     itemLayout="horizontal"
                     dataSource={cartData?.cartItemList}
                     renderItem={(Cartitem) => (
-                        <List.Item>
+                        <List.Item
+                            extra={
+                                <RemoveCartItemButton
+                                    cartItem = {Cartitem}
+                                    onRemoveSuccess = {loadData}
+                                />
+                            }>
                             <List.Item.Meta
                                 title={Cartitem.item.name}
                                 description={`${Cartitem.item.weight}KG`}

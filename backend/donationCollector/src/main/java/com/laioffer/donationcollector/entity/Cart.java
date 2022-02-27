@@ -1,5 +1,7 @@
 package com.laioffer.donationcollector.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +13,7 @@ public class Cart implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
@@ -22,11 +24,11 @@ public class Cart implements Serializable {
 
     private double totalWeight;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public Cart setId(int id) {
+    public Cart setId(Long id) {
         this.id = id;
         return this;
     }

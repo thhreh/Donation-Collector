@@ -1,5 +1,6 @@
 package com.laioffer.donationcollector.service;
 
+import com.laioffer.donationcollector.entity.Cart;
 import com.laioffer.donationcollector.entity.CartItem;
 import com.laioffer.donationcollector.entity.Item;
 import com.laioffer.donationcollector.entity.NGO;

@@ -67,7 +67,21 @@ export const deleteItem = (itemId) => {
         }
     });
 };
+export const deleteCartItem = (cartItemId) => {
+    const authToken = localStorage.getItem("authToken");
+    const deleteCartItemUrl = `${domain}/order/${cartItemId}`;
 
+    return fetch(deleteCartItemUrl, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw Error("Fail to delete item");
+        }
+    });
+};
 export const getItemsByDonor = () => {
     const authToken = localStorage.getItem("authToken");
     const listItemsUrl = `${domain}/items/`;

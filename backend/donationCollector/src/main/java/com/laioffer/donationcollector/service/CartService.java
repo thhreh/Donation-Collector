@@ -7,8 +7,11 @@ import com.laioffer.donationcollector.repository.ItemRepository;
 import com.laioffer.donationcollector.repository.NGORepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.xml.bind.SchemaOutputResolver;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,7 +44,7 @@ public class CartService {
         cart.setCartItemList(new ArrayList<>());
         for(CartItem cartItem: items) {
             donorSet.add(getDonor(cartItem, cartItems));
-            removeCartItem(cartItem, cartItems);
+            removeCartItem(cartItem.getId(), principal);
             Item cur = cartItem.getItem();
             itemRepository.deleteById(cur.getId());
         }
@@ -54,8 +57,15 @@ public class CartService {
         return donor;
     }
 
-    public void removeCartItem(CartItem cartItem, List<CartItem> cartItems) {
-        cartItemRepository.deleteById(cartItem.getId());
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public void removeCartItem(Long cartItemId, Principal principal) {
+        NGO ngo = ngoRepository.findById(principal.getName()).orElse(null);
+        CartItem cartItem = cartItemRepository.getById(cartItemId);
+        Cart cart = ngo.getCart();
+        List<CartItem> curCart = cart.getCartItemList();
+        curCart.remove(cartItem);
+        cartItemRepository.deleteById(cartItemId);
+        //cartRepository.updateCartList(cart.getId(), curCart);
     }
 
 
