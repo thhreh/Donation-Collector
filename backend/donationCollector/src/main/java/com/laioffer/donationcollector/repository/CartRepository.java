@@ -13,8 +13,4 @@ import java.util.List;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-    @Modifying
-    @Query("UPDATE Cart c SET c.cartItemList = ?2 WHERE c.id = ?1")
-    void updateCartList(Long cartId, List<CartItem> cartItems);
-
 }
