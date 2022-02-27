@@ -101,3 +101,65 @@ export const uploadItem = (data) => {
         }
     });
 };
+export const searchCatagory = (query) => {
+    const authToken = localStorage.getItem("authToken");
+    const searchStaysUrl = new URL(`${domain}/search`);
+    searchStaysUrl.searchParams.append("category", query);
+
+    return fetch(searchStaysUrl, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw Error("Fail to search catagories");
+        }
+        return response.json();
+    });
+};
+
+export const getCart = () => {
+    const authToken = localStorage.getItem("authToken");
+    const getCartUrl = new URL (`${domain}/cart/`);
+
+    return fetch(getCartUrl, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    }).then((response) => {
+        if (response.status < 200  || response.status >= 300) {
+            throw Error("Fail to get shopping cart data");
+        }
+        return response.json();
+    });
+};
+
+export const checkout = () => {
+    const authToken = localStorage.getItem("authToken");
+    const getCheckouttUrl = new URL(`${domain}/schedule`);
+    return fetch(getCheckouttUrl, {
+        method:"DELETE",
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    }).then((response) => {
+        if (response.status < 200  || response.status >= 300) {
+            throw Error("Fail to checkout");
+        }
+        return response.json();
+    });
+};
+export const addToCart = (itemId) => {
+    const authToken = localStorage.getItem("authToken");
+    const getAddOrderUrl = new URL(`${domain}/order/${itemId}`);
+    return fetch(getAddOrderUrl, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+        }
+    }).then((response) => {
+        if (response.status < 200 || response.status >= 300) {
+            throw Error("Fail to add menu item to shopping cart");
+        }
+    });
+};

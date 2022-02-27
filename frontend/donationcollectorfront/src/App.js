@@ -5,7 +5,8 @@ import SignupForm from "./components/SignupForm";
 import {Dropdown, Button, Menu} from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import DonorHome from "./components/DonorHome";
-
+import NGOHome from "./components/NGOHome";
+import MyCart from "./components/Cart";
 class App extends React.Component {
   state = {
     authed: false,
@@ -28,7 +29,7 @@ class App extends React.Component {
     }
 
     if (this.state.asNGO) {
-      return <div>NGO page</div>;
+      return <NGOHome />;
     }
 
     return <DonorHome/>;
@@ -64,6 +65,7 @@ class App extends React.Component {
               <div className="slogan">
                 <img src={logoUrl} className="logo" height={70} width={80}/>
                 <div className="title">Donations</div>
+                <div>{this.state.authed && this.state.asNGO &&<MyCart/>}</div>
               </div>
               {!this.state.authed && (
                   <div className="signUp-div">
