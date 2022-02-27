@@ -28,10 +28,37 @@ body {
   align-items: center;
   overflow: auto;
   height: calc(100vh - 90px);
-  background-image: url("https://lh3.googleusercontent.com/p0TYyHdosvBt8cD5uhJFiqWTKFLVcLbdYmQ5yusLOhkKhDs3lQLjjqBdIhe4sKFLhDsQO6PEibymDUCJ2zN5VQepWdVhr6h8WqlsFia6r0q1g7oj3zS6JBHZhQvt8zfZMyE7EtKwNg=w2400");
+  background-image: url("https://camo.envatousercontent.com/e238574b1497780cd3ba61307dcc1df9c1dc319d/68747470733a2f2f77656273746572756e697465646d6574686f646973742e6f72672f77702d636f6e74656e742f75706c6f6164732f323031392f30392f596f756e672d4368696c6472656e5f526564756365642d43726f707065642e6a7067");
   background-color: bisque;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80%;
   background-size: cover;
 }
+
+.donorHome{
+  background-color: rgba(255, 255, 255, 1);
+  font-family: "Arial";
+  position: relative;
+  overflow: auto;
+  width: 100vh;
+  padding: 30px;
+}
+.tab{
+  background-color:rgb(255, 255, 255);
+  font-family: "Arial", monospace;
+  font-style: initial;
+  position: relative;
+  overflow: auto;
+  height: calc(100vh - 90px);
+  padding: 30px;
+
+}
+.upload{
+  background-color:rgb(255, 255, 255);
+  width: 100vh;
+  position: relative;
+  padding: 30px;
+
+}
+

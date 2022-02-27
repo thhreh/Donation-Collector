@@ -9,21 +9,27 @@ import {
     Tooltip,
     Space,
     Modal,
-    Popconfirm
+    Popconfirm,
+    Avatar,
+    Spin
 } from "antd";
 import {
     LeftCircleFilled,
     RightCircleFilled,
     InfoCircleOutlined,
     DeleteOutlined,
-    QuestionCircleOutlined
+    QuestionCircleOutlined,
 } from "@ant-design/icons";
 import Text from "antd/lib/typography/Text";
 import React from "react";
 import {getItemById, getItemsByDonor,deleteItem} from "../utils";
 import UploadItem from "./UploadItem";
 
+
+
 const { TabPane } = Tabs;
+
+
 
 class ItemList extends React.Component {
     state = {
@@ -41,10 +47,11 @@ class ItemList extends React.Component {
         });
 
         try {
-            const resp = await getItemById(this.props.itemsId);
+            const resp = await getItemById(this.props.itemId);
             this.setState({
                 items: resp
             });
+            console.log(this.state.items)
         } catch (error) {
             message.error(error.message);
         } finally {
@@ -55,12 +62,13 @@ class ItemList extends React.Component {
     };
 
     render() {
-        const { loading, items } = this.state;
+        const { loading,items} = this.state;
+
 
         return (
             <List
                 loading={loading}
-                dataSource={items}
+                dataSource={[items]}
                 renderItem={(item) => (
                     <List.Item>
                         <List.Item.Meta
@@ -68,12 +76,13 @@ class ItemList extends React.Component {
                             description={
                                 <>
                                     <Text>Item Category: {item.category}</Text>
-                                    <br />
+                                    <br/>
                                     <Text>Item Description: {item.description}</Text>
                                 </>
                             }
+
                         />
-                    </List.Item>
+                    </List.Item >
                 )}
             />
         );
@@ -118,7 +127,7 @@ class ViewItemsButton extends React.Component {
                         onCancel={this.handleCancel}
                         destroyOnClose={true}
                     >
-                        <ItemList stayId={item.id} />
+                        <ItemList itemId={item.id} />
                     </Modal>
                 )}
             </>
@@ -152,7 +161,7 @@ class RemoveItemButton extends React.Component {
     render() {
         return (
             <Popconfirm
-                title="Are you sureï¼Ÿ"
+                title="Are you sure?"
                 icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             >
                 <Button
@@ -277,8 +286,8 @@ class MyItems extends React.Component {
                         <Card
                             key={element.id}
                             title={
-                                <div style={{ display: "flex", alignItems: "center" }}>
-                                    <Text ellipsis={true} style={{ maxWidth: 150 }}>
+                                <div style={{display: "flex" ,alignItems:"center"}}>
+                                    <Text ellipsis={true} style={{ maxWidth: 120, maxheight: 20 }}>
                                         {element.name}
                                     </Text>
                                     <ItemDetailInfoButton item={element} />
@@ -301,11 +310,12 @@ class MyItems extends React.Component {
                                 >
                                     {element.images.map((image, index) => (
                                         <div key={index}>
-                                            <Image src={image.url} width="100%" />
+                                            <Image src={image.url} position = "center" width="50%" height="50%" />
                                         </div>
                                     ))}
                                 </Carousel>
                             }
+                            <Avatar src="https://joeschmoe.io/api/v1/random" />
                         </Card>
                     </List.Item>
                 )}
@@ -317,8 +327,9 @@ class MyItems extends React.Component {
 class DonorHome extends React.Component {
     render() {
         return (
-            <Tabs defaultActiveKey="1" destroyInactiveTabPane={true}>
-                <TabPane tab="My Item" key="1">
+
+            <Tabs   className="tab" defaultActiveKey="1" destroyInactiveTabPane={true}>
+                <TabPane className="donorHome"  tab="My Item" key="1">
                     <MyItems />
                 </TabPane>
                 <TabPane tab="Upload Item" key="2">

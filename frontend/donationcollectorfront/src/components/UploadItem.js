@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Button, message,TreeSelect} from "antd";
 import { uploadItem } from "../utils"; //upload item
 
 const layout = {
-    labelCol: { span: 8 },
+    labelCol: { span: 5 },
     wrapperCol: { span: 16 }
 };
 
@@ -50,11 +50,11 @@ class UploadItem extends React.Component {
 
     render() {
         return (
-            <Form
-                {...layout}
-                name="nest-messages"
-                onFinish={this.handleSubmit}
-                style={{ maxWidth: 1000, margin: "auto" }}
+            <Form className="upload"
+                  {...layout}
+                  name="nest-messages"
+                  onFinish={this.handleSubmit}
+                  style={{ maxWidth: 2000, margin: "auto" }}
             >
                 <Form.Item name="name" label="Item Name" rules={[{ required: true }]}>
                     <Input />
@@ -72,7 +72,6 @@ class UploadItem extends React.Component {
                             {
                                 title: 'Food',
                                 value: 'Food',
-
                             },
                             {
                                 title: 'Clothes',
@@ -85,9 +84,6 @@ class UploadItem extends React.Component {
                         ]}
                     />
                 </Form.Item>
-                <Form.Item name="donor" label="Donor" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
                 <Form.Item
                     name="weight"
                     label="Weight"
@@ -95,7 +91,7 @@ class UploadItem extends React.Component {
                 >
                     <InputNumber />
                 </Form.Item>
-                <Form.Item name="picture" label="Image" rules={[{ required: true }]}>
+                <Form.Item name="images" label="Image" rules={[{ required: true }]}>
                     <input
                         type="file"
                         accept="image/png, image/jpeg"

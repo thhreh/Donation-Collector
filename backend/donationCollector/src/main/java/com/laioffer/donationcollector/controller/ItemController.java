@@ -33,7 +33,6 @@ public class ItemController {
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("category") String category,
-            @RequestParam("donor") String donor,
             @RequestParam("weight") double weight,
             @RequestParam("images") MultipartFile[] images,
             Principal principal) {
@@ -42,7 +41,7 @@ public class ItemController {
                 .setDescription(description)
                 .setWeight(weight)
                 .setCategory(category)
-                .setDonor(new Donor.Builder().setUsername(donor).build())
+                .setDonor(new Donor.Builder().setUsername(principal.getName()).build())
                 .build();
        List<NGO> ngosToBeNotified = itemService.add(item, images, principal);
        return ngosToBeNotified;
