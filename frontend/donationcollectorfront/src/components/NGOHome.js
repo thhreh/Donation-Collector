@@ -239,7 +239,6 @@ class NGOHome extends React.Component {
         <TabPane tab="Donation Items" key="1">
           <MyItems />
         </TabPane>
-        <TabPane tab="Cart" key="2"></TabPane>
       </Tabs>
     );
   }
