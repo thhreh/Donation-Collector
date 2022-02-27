@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, InputNumber, Button, message,TreeSelect} from "antd";
 import { uploadItem } from "../utils"; //upload item
+import emailjs from 'emailjs-com';
 
 const layout = {
     labelCol: { span: 5 },
@@ -13,6 +14,23 @@ class UploadItem extends React.Component {
     };
 
     fileInputRef = React.createRef();
+
+    UploadandCheck = async(formData) => {
+        const ngoemails = await uploadItem(formData);
+
+        console.log(ngoemails)
+        if (ngoemails.length !== 0){
+            for(let val of Object.keys(ngoemails)) {
+                console.log(val)
+                if(ngoemails[val].username.includes("gmail") || ngoemails[val].username.includes("Gmail")){
+                    console.log(ngoemails[val].username)
+                    emailjs.send("service_4oedpgp","template_ih0mx1h",{
+                        to_name: ngoemails[val].username,
+                    });
+                }
+            }
+        }
+    }
 
     handleSubmit = async (values) => {
         const formData = new FormData();
@@ -37,8 +55,9 @@ class UploadItem extends React.Component {
             loading: true
         });
         try {
-            await uploadItem(formData);
+            this.UploadandCheck(formData)
             message.success("upload successfully");
+
         } catch (error) {
             message.error(error.message);
         } finally {

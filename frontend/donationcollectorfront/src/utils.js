@@ -1,4 +1,4 @@
-const domain = "http://localhost:8080"; // delpoy后跑起来的url 目前填localhost
+const domain = "http://localhost:8080";
 
 
 export const signup = (credential, asNGO) => {
@@ -99,6 +99,7 @@ export const uploadItem = (data) => {
         if (response.status !== 200) {
             throw Error("Fail to upload item");
         }
+        return response.json();
     });
 };
 export const searchCatagory = (query) => {

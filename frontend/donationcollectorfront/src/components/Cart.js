@@ -2,6 +2,11 @@ import { Button, Drawer, List, message, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { checkout, getCart } from "../utils";
 
+import emailjs from 'emailjs-com';
+import{ init } from '@emailjs/browser';
+
+
+
 const { Text } = Typography;
 
 const MyCart = () => {
@@ -9,6 +14,8 @@ const MyCart = () => {
     const [cartData, setCartData] = useState();
     const [loading, setLoading] = useState(false);
     const [checking, setChecking] = useState(false);
+    //const [email, setemail] = useState();
+    const [Date, setDate] = useState();
 
     useEffect(() => {
         if (!cartVisible) {
@@ -28,19 +35,29 @@ const MyCart = () => {
             });
     }, [cartVisible]);
 
+    const sendemail = async () => {
+        const temp_email = await checkout()
+        for(let val1 of Object.keys(temp_email)) {
+            emailjs.send("service_4oedpgp","template_awd4qpk",{
+                to_name: temp_email[val1].username,
+                Pickup_time: Date,
+            });
+        }
+    }
+
     const onCheckOut = () => {
         setChecking(true);
-        checkout()
-            .then(() => {
-                message.success("Successfully checkout");
-                setCartVisible(false);
-            })
-            .catch((err) => {
-                message.error(err.message);
-            })
-            .finally(() => {
-                setChecking(false);
-            });
+        try{
+            sendemail()
+            message.success("Successfully checkout");
+            setCartVisible(false);
+        }
+        catch (err) {
+            message.error(err.message);
+        }
+        finally {
+            setChecking(false);
+        };
     };
 
     const onCloseDrawer = () => {
@@ -68,6 +85,7 @@ const MyCart = () => {
                             justifyContent: "space-between",
                         }}
                     >
+                        <input type="text" placeholder="Expect Pickup Date" onChange={e => setDate(e.target.value)} />
                         <Text strong={true}>{`Total Weight: ${cartData?.totalWeight} KG`}</Text>
                         <div>
                             <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>

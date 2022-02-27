@@ -7,6 +7,7 @@ import { UserOutlined } from "@ant-design/icons";
 import DonorHome from "./components/DonorHome";
 import NGOHome from "./components/NGOHome";
 import MyCart from "./components/Cart";
+import emailjs from 'emailjs-com';
 class App extends React.Component {
   state = {
     authed: false,
@@ -29,10 +30,12 @@ class App extends React.Component {
     }
 
     if (this.state.asNGO) {
+      emailjs.init("yu-Wjwk3CfmqAstUm");
       return <NGOHome />;
     }
-
+    emailjs.init("yu-Wjwk3CfmqAstUm");
     return <DonorHome/>;
+
   };
 
   handleLoginSucces = (token, asNGO) => {
