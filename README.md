@@ -1,6 +1,6 @@
 # Donation-Collector
 
-a website that helps collect donations
+a website that helps collect donations, usings spring for backend and react for frontend
 
 Demo: https://youtu.be/qmNekcnTho8
 
